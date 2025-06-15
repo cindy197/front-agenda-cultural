@@ -29,6 +29,7 @@ export function CadEvent() {
   const [dataInicio, setDataInicio] = useState("");
   const [horaInicio, setHoraInicio] = useState("");
   const [horaFim, setHoraFim] = useState("");
+  const [imagemUrl, setImagemUrl] = useState("");
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
@@ -52,7 +53,8 @@ export function CadEvent() {
       !categoria ||
       !dataInicio ||
       !horaInicio ||
-      !horaFim
+      !horaFim ||
+      !imagemUrl
     ) {
       setError("Preencha todos os campos obrigatórios.");
       setLoading(false);
@@ -69,6 +71,7 @@ export function CadEvent() {
       descricao,
       local,
       categoria,
+      "imagem-url": imagemUrl,
       calendarios: [calendario],
     };
     console.log("Conteúdo da variável data:", data);
@@ -100,7 +103,7 @@ export function CadEvent() {
   }
 
   return (
-    <div className="flex h-screen w-screen items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+    <div className="flex h-screen w-screen items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 overflow-x-hidden">
       <button
         onClick={handleLogout}
         className="absolute top-6 right-8 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg shadow-md z-10"
@@ -113,7 +116,7 @@ export function CadEvent() {
       >
         Voltar
       </button>
-      <Card className="w-full max-w-lg shadow-xl rounded-2xl border-0 bg-white/90">
+      <Card className="w-full max-w-3xl shadow-xl rounded-2xl border-0 bg-white/90 flex-1 flex flex-col justify-center min-h-[80vh] max-h-[90vh] overflow-y-auto">
         <CardHeader className="mb-2 text-center">
           <CardTitle className="text-2xl font-bold text-indigo-700 gap-4 flex flex-col items-center">
             <h1>Cadastro de Evento</h1>
@@ -122,97 +125,133 @@ export function CadEvent() {
             Preencha os dados do evento cultural.
           </CardDescription>
         </CardHeader>
-        <form onSubmit={handleSubmit}>
-          <CardContent className="flex flex-col gap-3 px-6 pb-2">
-            <Label className="mb-1 text-sm text-gray-700" htmlFor="titulo">
-              Título do Evento
-            </Label>
-            <Input
-              id="titulo"
-              value={titulo}
-              onChange={(e) => setTitulo(e.target.value)}
-              required
-              placeholder="Show de Rock"
-              className="rounded-lg border-gray-300 focus:border-indigo-400 focus:ring-indigo-200"
-            />
-            <Label className="mb-1 text-sm text-gray-700" htmlFor="descricao">
-              Descrição
-            </Label>
-            <Input
-              id="descricao"
-              value={descricao}
-              onChange={(e) => setDescricao(e.target.value)}
-              required
-              placeholder="Evento musical com bandas locais"
-              className="rounded-lg border-gray-300 focus:border-indigo-400 focus:ring-indigo-200"
-            />
-            <Label className="mb-1 text-sm text-gray-700" htmlFor="local">
-              Local
-            </Label>
-            <Input
-              id="local"
-              value={local}
-              onChange={(e) => setLocal(e.target.value)}
-              required
-              placeholder="Praça Central"
-              className="rounded-lg border-gray-300 focus:border-indigo-400 focus:ring-indigo-200"
-            />
-            <Label className="mb-1 text-sm text-gray-700" htmlFor="categoria">
-              Categoria
-            </Label>
-            <select
-              id="categoria"
-              value={categoria}
-              onChange={(e) => setCategoria(e.target.value)}
-              className="rounded-lg border-gray-300 border-1 focus:border-indigo-400 focus:ring-indigo-200 p-2"
-            >
-              <option value="TEATRO">Teatro</option>
-              <option value="CURSO">Curso</option>
-              <option value="TURISMO">Turismo</option>
-              <option value="HISTORIA_E_CULTURA">História e Cultura</option>
-              <option value="CINEMA">Cinema</option>
-              <option value="ESPORTES">Esportes</option>
-              <option value="GASTRONOMIA">Gastronomia</option>
-            </select>
-            <Label className="mb-1 text-sm text-gray-700" htmlFor="dataInicio">
-              Data do Evento
-            </Label>
-            <Input
-              id="dataInicio"
-              type="date"
-              value={dataInicio}
-              onChange={(e) => setDataInicio(e.target.value)}
-              required
-              className="rounded-lg border-gray-300 focus:border-indigo-400 focus:ring-indigo-200"
-            />
-            <Label className="mb-1 text-sm text-gray-700" htmlFor="horaInicio">
-              Hora de Início
-            </Label>
-            <Input
-              id="horaInicio"
-              type="number"
-              min="0"
-              max="23"
-              value={horaInicio}
-              onChange={(e) => setHoraInicio(e.target.value)}
-              required
-              placeholder="Ex: 13"
-              className="rounded-lg border-gray-300 focus:border-indigo-400 focus:ring-indigo-200"
-            />
-            <Label className="mb-1 text-sm text-gray-700" htmlFor="horaFim">
-              Hora de Fim
-            </Label>
-            <Input
-              id="horaFim"
-              type="number"
-              min="0"
-              max="23"
-              value={horaFim}
-              onChange={(e) => setHoraFim(e.target.value)}
-              required
-              placeholder="Ex: 16"
-              className="rounded-lg border-gray-300 focus:border-indigo-400 focus:ring-indigo-200"
-            />
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col justify-center h-full"
+        >
+          <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-4 px-6 pb-2">
+            <div className="flex flex-col gap-2">
+              <Label className="mb-1 text-sm text-gray-700" htmlFor="titulo">
+                Título do Evento
+              </Label>
+              <Input
+                id="titulo"
+                value={titulo}
+                onChange={(e) => setTitulo(e.target.value)}
+                required
+                placeholder="Show de Rock"
+                className="rounded-lg border-gray-300 focus:border-indigo-400 focus:ring-indigo-200"
+              />
+            </div>
+            <div className="flex flex-col gap-2">
+              <Label className="mb-1 text-sm text-gray-700" htmlFor="descricao">
+                Descrição
+              </Label>
+              <Input
+                id="descricao"
+                value={descricao}
+                onChange={(e) => setDescricao(e.target.value)}
+                required
+                placeholder="Evento musical com bandas locais"
+                className="rounded-lg border-gray-300 focus:border-indigo-400 focus:ring-indigo-200"
+              />
+            </div>
+            <div className="flex flex-col gap-2">
+              <Label className="mb-1 text-sm text-gray-700" htmlFor="local">
+                Local
+              </Label>
+              <Input
+                id="local"
+                value={local}
+                onChange={(e) => setLocal(e.target.value)}
+                required
+                placeholder="Praça Central"
+                className="rounded-lg border-gray-300 focus:border-indigo-400 focus:ring-indigo-200"
+              />
+            </div>
+            <div className="flex flex-col gap-2">
+              <Label className="mb-1 text-sm text-gray-700" htmlFor="categoria">
+                Categoria
+              </Label>
+              <select
+                id="categoria"
+                value={categoria}
+                onChange={(e) => setCategoria(e.target.value)}
+                className="rounded-lg border-gray-300 border-1 focus:border-indigo-400 focus:ring-indigo-200 p-2"
+              >
+                <option value="TEATRO">Teatro</option>
+                <option value="CURSO">Curso</option>
+                <option value="TURISMO">Turismo</option>
+                <option value="HISTORIA_E_CULTURA">História e Cultura</option>
+                <option value="CINEMA">Cinema</option>
+                <option value="ESPORTES">Esportes</option>
+                <option value="GASTRONOMIA">Gastronomia</option>
+              </select>
+            </div>
+            <div className="flex flex-col gap-2">
+              <Label
+                className="mb-1 text-sm text-gray-700"
+                htmlFor="horaInicio"
+              >
+                Hora de Início
+              </Label>
+              <Input
+                id="horaInicio"
+                type="number"
+                min="0"
+                max="23"
+                value={horaInicio}
+                onChange={(e) => setHoraInicio(e.target.value)}
+                required
+                placeholder="Ex: 13"
+                className="rounded-lg border-gray-300 focus:border-indigo-400 focus:ring-indigo-200"
+              />
+            </div>
+            <div className="flex flex-col gap-2">
+              <Label className="mb-1 text-sm text-gray-700" htmlFor="horaFim">
+                Hora de Fim
+              </Label>
+              <Input
+                id="horaFim"
+                type="number"
+                min="0"
+                max="23"
+                value={horaFim}
+                onChange={(e) => setHoraFim(e.target.value)}
+                required
+                placeholder="Ex: 16"
+                className="rounded-lg border-gray-300 focus:border-indigo-400 focus:ring-indigo-200"
+              />
+            </div>
+            <div className="flex flex-col gap-2">
+              <Label
+                className="mb-1 text-sm text-gray-700"
+                htmlFor="dataInicio"
+              >
+                Data do Evento
+              </Label>
+              <Input
+                id="dataInicio"
+                type="date"
+                value={dataInicio}
+                onChange={(e) => setDataInicio(e.target.value)}
+                required
+                className="rounded-lg border-gray-300 focus:border-indigo-400 focus:ring-indigo-200"
+              />
+            </div>
+            <div className="flex flex-col gap-2 md:col-span-2">
+              <Label className="mb-1 text-sm text-gray-700" htmlFor="imagemUrl">
+                URL da Imagem
+              </Label>
+              <Input
+                id="imagemUrl"
+                value={imagemUrl}
+                onChange={(e) => setImagemUrl(e.target.value)}
+                required
+                placeholder="https://exemplo.com/imagem.jpg"
+                className="rounded-lg border-gray-300 focus:border-indigo-400 focus:ring-indigo-200"
+              />
+            </div>
           </CardContent>
           <CardFooter className="flex flex-col gap-2 px-6 pb-6">
             <Button

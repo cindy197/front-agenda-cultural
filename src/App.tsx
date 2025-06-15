@@ -6,6 +6,7 @@ import { Event } from "./pages/Event";
 import { MyEvents } from "./pages/Myevents";
 import { Aprove } from "./pages/Aprove";
 import type { ReactNode } from "react";
+import { Landing } from "./pages/A3 FRONTBACK";
 
 function isAuthenticated() {
   return !!localStorage.getItem("token");
@@ -85,7 +86,7 @@ export function App() {
             </PrivateRoute>
           }
         />
-        <Route path="/" element={<Event />} />
+        <Route path="/" element={<Landing />} />
         <Route
           path="*"
           element={
