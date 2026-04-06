@@ -5,12 +5,14 @@
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=flat&logo=postgresql&logoColor=white)
 ![Hibernate](https://img.shields.io/badge/Hibernate-59666C?style=flat&logo=hibernate&logoColor=white)
 ![Postman](https://img.shields.io/badge/Postman-FF6C37?style=flat&logo=postman&logoColor=white)
+![React](https://img.shields.io/badge/React-20232A?style=flat&logo=react&logoColor=61DAFB)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=flat&logo=typescript&logoColor=white)
 
 ---
 
 ## 💻 Sobre o projeto
 
-API REST desenvolvida em Java com Spring Boot para gerenciamento de eventos culturais. Permite o cadastro, listagem e filtragem de eventos por categoria e data, com arquitetura em camadas e tratamento de exceções centralizado.
+Aplicação fullstack para gerenciamento de eventos culturais. O backend foi desenvolvido em Java com Spring Boot, oferecendo uma API REST com cadastro, listagem e filtragem de eventos por categoria e data, arquitetura em camadas e tratamento de exceções centralizado. O frontend foi desenvolvido com React e TypeScript.
 
 Projeto desenvolvido em equipe durante a faculdade, seguindo metodologia **Scrum**, com rastreabilidade de tarefas e cumprimento de prazos por sprints.
 
@@ -53,10 +55,12 @@ O projeto foi estruturado seguindo o padrão de camadas:
 
 | Tecnologia | Uso |
 |---|---|
-| Java | Linguagem principal |
+| Java | Linguagem principal do backend |
 | Spring Boot | Framework para construção da API REST |
 | PostgreSQL | Banco de dados relacional |
 | JPA / Hibernate | Mapeamento objeto-relacional (ORM) |
+| React | Biblioteca para construção do frontend |
+| TypeScript | Tipagem estática no frontend |
 | Postman | Testes e validação dos endpoints |
 | Scrum | Metodologia ágil para gestão do projeto |
 
